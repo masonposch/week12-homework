@@ -20,3 +20,15 @@ connection.connect(function(err){
 
 
 
+connection.query('SELECT * FROM Products', function(err, res){
+	if(err) throw err;
+	for(var i=0; i < res.length; i++){
+		console.log("--------------------------")
+		console.log("Item ID: " + res[i].ItemID);
+		console.log("Product Name: " + res[i].ProductName);
+		console.log("Price: " + res[i].Price);
+		console.log("--------------------------")
+	}
+});
+
+connection.end();
