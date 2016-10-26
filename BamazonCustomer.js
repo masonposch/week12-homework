@@ -25,8 +25,9 @@ connection.connect(function(err){
 });
 
 
-
+//Searches through the entire MySQL table and lists all the products that are available
 connection.query('SELECT * FROM Products', function(err, res){
+	
 	if(err) throw err;
 	for(var i=0; i < res.length; i++){
 		console.log("--------------------------")
@@ -35,6 +36,8 @@ connection.query('SELECT * FROM Products', function(err, res){
 		console.log("Price: " + res[i].Price);
 		console.log("--------------------------")
 	}
+	
+	//Begins PROMPT function
 	prompt.start();
 
 	prompt.get([{
@@ -57,14 +60,26 @@ connection.query('SELECT * FROM Products', function(err, res){
 
 	}], function(err, result){
 
-		console.log(result.ID);
-		console.log(result.units);
+		//Targets the ItemID in from MySQL table, then finds the row and product -->
+		//-->containing the ItemID entered by the user
+		connection.query("SELECT * FROM Products WHERE ItemID = ?", [parseInt(result.ID)], function(err, res){
+			if(err) throw err;
+			for(var i=0; i<res.length; i++){
+				console.log(res[i].ProductName);
+				console.log(result.ID);
+				console.log(result.units);
+			}
+		});
+
+		connection.end();
+		
+		//Console Logs the ItemID and the number of units customer wants to purchase
 
 	});
+
+
 });
 
-
-connection.end();
 
 
 
