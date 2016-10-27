@@ -66,14 +66,33 @@ connection.query('SELECT * FROM Products', function(err, res){
 			if(err) throw err;
 			for(var i=0; i<res.length; i++){
 				console.log(res[i].ProductName);
-				console.log(result.ID);
-				console.log(result.units);
+				//Console Logs the ItemID and the number of units customer wants to purchase
+				console.log("Item ID: " + result.ID);
+				console.log("Number of units purchased: " + result.units);
+
+				//Check to see if the number of units requested is larger or smaller than the number of units available in MySQL table
+				if(parseInt(result.units) > res[i].StockQuantity){
+					console.log("=======================");
+					console.log("Insufficient quantity!");
+					console.log("=======================");
+				} else {
+					console.log("==============================================================================");
+					console.log("Great! Your order is complete.")
+					console.log("Your total for this purchase is $" + (parseInt(result.units) * res[i].Price));
+					console.log("==============================================================================");
+
+					// connection.query("UPDATE Products SET StockQuantity = ? WHERE ItemID = ?", [res[i]StockQuantity - parseInt(result.units), parseInt(result.ID)], function(err, result){
+					// 	if(err) throw err;
+					// 	console.log("MySQL table has been updated");
+					// });
+				}
 			}
 		});
 
+
+
 		connection.end();
 		
-		//Console Logs the ItemID and the number of units customer wants to purchase
 
 	});
 
