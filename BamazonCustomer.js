@@ -81,17 +81,17 @@ connection.query('SELECT * FROM Products', function(err, res){
 					console.log("Your total for this purchase is $" + (parseInt(result.units) * res[i].Price));
 					console.log("==============================================================================");
 
-					// connection.query("UPDATE Products SET StockQuantity = ? WHERE ItemID = ?", [res[i]StockQuantity - parseInt(result.units), parseInt(result.ID)], function(err, result){
-					// 	if(err) throw err;
-					// 	console.log("MySQL table has been updated");
-					// });
+					connection.query("UPDATE Products SET StockQuantity = ? WHERE ItemID = ?", [res[i].StockQuantity - parseInt(result.units), parseInt(result.ID)], function(err, result){
+					});
 				}
 			}
 		});
 
-
-
 		connection.end();
+
+
+
+		
 		
 
 	});
