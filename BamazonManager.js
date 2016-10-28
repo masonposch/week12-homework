@@ -34,4 +34,44 @@ inquirer.prompt([
 	}
 ]).then(function(user){
 
+	if(user.choice === "View Products for Sale"){
+		
+		connection.query("SELECT * FROM Products", function(err, res){
+			if(err) throw err;
+			for(var i=0; i < res.length; i++){
+				console.log("--------------------------")
+				console.log("Item ID: " + res[i].ItemID);
+				console.log("Product Name: " + res[i].ProductName);
+				console.log("Price: " + res[i].Price);
+				console.log("--------------------------")
+			}
+		});
+
+		connection.end();
+
+	}
+
+	else if(user.choice === "View Low Inventory"){
+
+		connection.query("SELECT * FROM Products", function(err, res){
+			if(err) throw err;
+			for(var j=0; j<res.length; j++){
+				if(res[j].StockQuantity <= 100){
+					console.log("--------------------------")
+					console.log("Low inventory on " + res[j].ProductName);
+					console.log("--------------------------")
+				}
+			}
+		});
+
+			connection.end();
+
+	}
+
 });
+
+
+
+
+
+
