@@ -83,8 +83,20 @@ inquirer.prompt([
 		}
 
 		]).then(function(newUser){
-			console.log(newUser.Number);
-			console.log(newUser.Item);
+		
+			connection.query("SELECT * FROM Products WHERE = ?", [ProductName], function(err, res){
+
+				if(err) throw err;
+				for(var i=0; i < res.length; i++){
+					if(user.Item === res[i].ProductName){
+						res[i].StockQuantity = res[i].StockQuantity + parseInt(newUser.Number);
+					}
+				}
+
+			});
+
+			connection.end();
+
 		});
 	}
 
