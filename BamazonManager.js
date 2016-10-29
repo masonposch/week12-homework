@@ -68,6 +68,26 @@ inquirer.prompt([
 
 	}
 
+	else if(user.choice === "Add to Inventory"){
+		inquirer.prompt([
+
+		{
+			type: "Input",
+			message: "What item would you like to restock?",
+			name: "Item"
+		},
+		{
+			type: "Input",
+			message: "How many items would you like to add?",
+			name: "Number"
+		}
+
+		]).then(function(newUser){
+			console.log(newUser.Number);
+			console.log(newUser.Item);
+		});
+	}
+
 });
 
 
